@@ -28,8 +28,12 @@ router.get('/blogs', (ctx: Koa.Context) => {
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
- *       "blogTitle": "blog 标题",
- *       "blogContent": "今天天气很好"
+ *       "code": 0,
+ *       "message": "获取某个数据成功",
+ *       "data": {
+ *         "blogTitle": "blog 标题",
+ *         "blogContent": "今天天气很好"
+ *       }
  *     }
  *
  * @apiError BlogNotFound The id of the Blog was not found.
@@ -42,8 +46,12 @@ router.get('/blogs', (ctx: Koa.Context) => {
  */
 router.get('/blogs/:id', (ctx: Koa.Context) => {
   ctx.body = {
-    message: "获取某个数据",
-    data: []
+    code: 0,
+    message: "获取某个数据成功",
+    data: {
+      blogTitle: "blog 标题",
+      blogContent: "今天天气很好"
+    }
   }
 });
 

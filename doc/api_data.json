@@ -40,7 +40,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"blogTitle\": \"blog 标题\",\n  \"blogContent\": \"今天天气很好\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 0,\n  \"message\": \"获取某个数据成功\",\n  \"data\": {\n    \"blogTitle\": \"blog 标题\",\n    \"blogContent\": \"今天天气很好\"\n  }\n}",
           "type": "json"
         }
       ]
