@@ -2,7 +2,7 @@ import * as Koa from 'koa';
 import * as Router from 'koa-router';
 import * as bodyParser from 'koa-bodyparser';
 import {noNumber} from './help/help';
-import {HttpException} from './httpException';
+import {RequestTypeException, SuccessHttpException} from './httpException';
 
 const app = new Koa();
 const router = new Router();
@@ -50,23 +50,17 @@ router.get('/blogs/:id', (ctx: Koa.Context) => {
   const id = ctx.params.id;
 
   if(noNumber(id)){
-    ctx.body = {
-      code: -1,
-      message: "blog id 数据类型必须为 number",
-      data: null
-    };
+    ctx.body = new RequestTypeException();
     return;
   }
 
   // 从数据库获取数据
-  ctx.body = new HttpException({
-    message: '获取数据成功',
-    code: 0,
+  ctx.body = new SuccessHttpException({
     data: {
-      blogTitle: "标题",
-      blogContent: '内容'
+      blogTitle: 'test',
+      blogContent: 'test1'
     }
-  })
+  });
 });
 
 // 新增一个数据
