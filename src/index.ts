@@ -6,7 +6,7 @@ const app = new Koa();
 const router = new Router();
 app.use(bodyParser());
 
-router.post('/:id', (ctx, next) => {
+router.post('/:id', (ctx: any) => {
   const path = ctx.params.id;
   const header = ctx.req.headers;
   const body = ctx.request.body;
