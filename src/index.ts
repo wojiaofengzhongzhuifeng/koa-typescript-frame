@@ -2,6 +2,7 @@ import * as Koa from 'koa';
 import * as Router from 'koa-router';
 import * as bodyParser from 'koa-bodyparser';
 import {noNumber} from './help/help';
+import {HttpException} from './httpException';
 
 const app = new Koa();
 const router = new Router();
@@ -58,14 +59,14 @@ router.get('/blogs/:id', (ctx: Koa.Context) => {
   }
 
   // 从数据库获取数据
-  ctx.body = {
+  ctx.body = new HttpException({
+    message: '获取数据成功',
     code: 0,
-    message: `获取blog id 为${id}成功`,
     data: {
-      blogTitle: `id 为 ${id} blog 的标题`,
-      blogContent: `id 为 ${id} blog 的内容: 今天天气很好`
+      blogTitle: "标题",
+      blogContent: '内容'
     }
-  }
+  })
 });
 
 // 新增一个数据
