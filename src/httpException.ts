@@ -9,9 +9,6 @@ export class HttpException {
 }
 
 export class SuccessHttpException extends HttpException{
-  data: any;
-  code: number;
-  message: string;
   constructor(props?: HttpExceptionInterface) {
     super(props);
     this.code = props.code || 0;
@@ -21,9 +18,6 @@ export class SuccessHttpException extends HttpException{
 }
 
 export class RequestTypeException extends HttpException{
-  data: any;
-  code: number;
-  message: string;
   constructor(props?: HttpExceptionInterface) {
     super(props);
     this.code = props ? props.code : -1;
