@@ -1,6 +1,7 @@
 import * as Koa from 'koa';
 import * as Router from 'koa-router';
 import * as bodyParser from 'koa-bodyparser';
+import {noNumber} from './help/help';
 
 const app = new Koa();
 const router = new Router();
@@ -45,12 +46,24 @@ router.get('/blogs', (ctx: Koa.Context) => {
  *     }
  */
 router.get('/blogs/:id', (ctx: Koa.Context) => {
+  const id = ctx.params.id;
+
+  if(noNumber(id)){
+    ctx.body = {
+      code: -1,
+      message: "blog id 数据类型必须为 number",
+      data: null
+    };
+    return;
+  }
+
+  // 从数据库获取数据
   ctx.body = {
     code: 0,
-    message: "获取某个数据成功",
+    message: `获取blog id 为${id}成功`,
     data: {
-      blogTitle: "blog 标题",
-      blogContent: "今天天气很好"
+      blogTitle: `id 为 ${id} blog 的标题`,
+      blogContent: `id 为 ${id} blog 的内容: 今天天气很好`
     }
   }
 });
