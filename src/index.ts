@@ -2,6 +2,8 @@ import * as Koa from 'koa';
 import * as Router from 'koa-router';
 import * as bodyParser from 'koa-bodyparser';
 import {noNumber} from './help/help';
+const multer = require('@koa/multer');
+const path = require('path');
 import {RequestTypeException, SuccessHttpException} from './httpException';
 
 const app = new Koa();
@@ -86,6 +88,34 @@ router.get('/blogs', (ctx: Koa.Context) => {
     data: []
   }
 });
+
+// 文件上传和预览功能
+//Upload File Storage Path and File Naming
+const storage = multer.diskStorage({
+  destination: function (req: Request, file: any, cb: any) {
+    cb(null, path.join(__dirname ,'/public'));
+  },
+  filename: function (req: Request, file: any, cb: any) {
+    let type = file.originalname.split('.')[1];
+    cb(null, `${file.fieldname}-${Date.now().toString(16)}.${type}`);
+  }
+});
+//File upload restrictions
+const limits = {
+  fields: 10,//Number of non-file fields
+  fileSize: 500 * 1024,//File Size Unit b
+  files: 1//Number of documents
+};
+const upload = multer({storage,limits});
+
+// 上传文件接口
+router.post('/file', upload.single('file'), async (ctx: any,next)=>{
+  ctx.body = {
+    code: 1,
+    data: ctx.file
+  }
+});
+
 
 app
   .use(router.routes())
