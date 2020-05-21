@@ -93,7 +93,7 @@ router.get('/blogs', (ctx: Koa.Context) => {
 //Upload File Storage Path and File Naming
 const storage = multer.diskStorage({
   destination: function (req: Request, file: any, cb: any) {
-    cb(null, path.join(__dirname ,'/public'));
+    cb(null, path.join(__dirname ,'../uploadFiles'));
   },
   filename: function (req: Request, file: any, cb: any) {
     let type = file.originalname.split('.')[1];
@@ -109,7 +109,7 @@ const limits = {
 const upload = multer({storage,limits});
 
 // 上传文件接口
-router.post('/file', upload.single('file'), async (ctx: any,next)=>{
+router.post('/files', upload.single('file'), async (ctx: any,next)=>{
   ctx.body = {
     code: 1,
     data: ctx.file
