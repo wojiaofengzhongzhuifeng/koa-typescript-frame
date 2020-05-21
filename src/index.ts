@@ -4,11 +4,13 @@ import * as bodyParser from 'koa-bodyparser';
 import {noNumber} from './help/help';
 const multer = require('@koa/multer');
 const path = require('path');
+const cors = require('@koa/cors');
 import {RequestTypeException, SuccessHttpException} from './httpException';
 
 const app = new Koa();
 const router = new Router();
 app.use(bodyParser());
+app.use(cors());
 
 // 获取所有数据
 router.get('/blogs', (ctx: Koa.Context) => {
